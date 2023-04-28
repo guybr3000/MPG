@@ -47,10 +47,10 @@ col1, col2,col3 = st.columns(3)
 with col1:
     option_0 = st.checkbox('Positive Free Text')
     if option_0:
-        free_text = st.text_input('',label_visibility='collapsed')
+        free_text = st.text_input('pos',label_visibility='collapsed')
     option_7 = st.checkbox('Negative Free Text')
     if option_7:
-        neg_text = st.text_input('',label_visibility='collapsed',key=2)
+        neg_text = st.text_input('neg',label_visibility='collapsed',key=2)
     st.subheader("Random Prompt Components:", anchor=False)
     option_1 = st.checkbox('Words')
     if option_1:
