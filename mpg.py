@@ -4,11 +4,9 @@ import pandas as pd
 import random
 import pyperclip
 import glob
-import os
 from PIL import Image
 
-current_path = os.getcwd()
-path = current_path+"\prompts\*.csv"
+path = './prompts/*.csv'
 
 # Get a list of all CSV files in the subfolder
 csv_files = glob.glob(path)
@@ -19,7 +17,7 @@ series_dict = {}
 # Loop through the list of CSV files
 for file in csv_files:
     # Extract the file name from the file path
-    file_name = file.removeprefix(current_path+"\\prompts\\")
+    file_name = file.removeprefix('./prompts/')
     file_name = file_name.removesuffix('.csv')
     # Read the CSV file into a pandas Series and store it in the dictionary
     series_dict[file_name] = pd.read_csv(file, encoding='latin',engine='python')
@@ -167,7 +165,7 @@ if 'key' not in st.session_state:
 
 
 with col3:
-    image = Image.open(current_path+'\\images\\back.png')
+    image = Image.open('./images/back.png')
     st.image(image)
 
 # Create a button to copy the selected options text to the text box
