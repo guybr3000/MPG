@@ -11,15 +11,13 @@ path = './prompts/*.csv'
 # Get a list of all CSV files in the subfolder
 csv_files = glob.glob(path)
 
-# Create an empty dictionary to store the Series data
+# Create an empty dictionary to store the data
 series_dict = {}
 
 # Loop through the list of CSV files
 for file in csv_files:
-    # Extract the file name from the file path
-    file_name = file.removeprefix('./prompts/')
+    file_name = file.removeprefix('./prompts\\')
     file_name = file_name.removesuffix('.csv')
-    # Read the CSV file into a pandas Series and store it in the dictionary
     series_dict[file_name] = pd.read_csv(file, encoding='latin',engine='python')
 
 ######################################################################################################
@@ -38,12 +36,10 @@ st.set_page_config(
     }
 )
 
-# Create Title
-
 st.title('Midjourney Prompt Generator',anchor=False)
 
 col1, col2,col3 = st.columns(3)
-# Create 5 on/off buttons using Streamlit's checkbox input
+
 with col1:
     option_0 = st.checkbox('Positive Free Text')
     if option_0:
@@ -87,10 +83,8 @@ with col1:
     param_9 = st.checkbox('Upscaler')
     if param_9:
         multi_ups = st.radio("Upscaler :red[(_Do not use with version 5_)]",('Light Upscaler', 'Beta Upscaler', 'Anime Upscaler'))
-    # Define an empty string variable for the result text
     result_text = ""
 
-# Create a button to generate output based on the selected options
 if st.button('Generate'):
     selected_components = []
     selected_options = []
@@ -150,12 +144,11 @@ if st.button('Generate'):
             selected_options.append('--upanime')
     if option_7:
         selected_options.append('--no '+ neg_text)
-    if selected_options:
+    if selected_components or selected_options:
         result_text = f"/imagine prompt: {', '.join(selected_components)} {' '.join(selected_options)}"
         result = st.code (result_text,language='csv',line_numbers=False)
         st.session_state['key'] = result_text
-#else:
-#    st.write("Please select at least one option")
+
 
     
         
@@ -168,7 +161,6 @@ with col3:
     image = Image.open('./images/back.png')
     st.image(image)
 
-# Create a button to copy the selected options text to the text box
 if st.button('Copy'):
     pyperclip.copy(st.session_state.key)
     st.write("Text copied to clipboard!")
