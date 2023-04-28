@@ -16,7 +16,7 @@ series_dict = {}
 
 # Loop through the list of CSV files
 for file in csv_files:
-    file_name = file.removeprefix('./prompts\\')
+    file_name = file.removeprefix('./prompts/')
     file_name = file_name.removesuffix('.csv')
     series_dict[file_name] = pd.read_csv(file, encoding='latin',engine='python')
 
