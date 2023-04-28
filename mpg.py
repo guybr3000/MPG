@@ -2,7 +2,6 @@
 import streamlit as st
 import pandas as pd
 import random
-import pyperclip
 import glob
 from PIL import Image
 
@@ -161,7 +160,5 @@ with col3:
     image = Image.open('./images/back.png')
     st.image(image)
 
-if st.button('Copy'):
-    pyperclip.copy(st.session_state.key)
-    st.write("Text copied to clipboard!")
+
     
