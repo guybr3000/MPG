@@ -75,7 +75,7 @@ with col1:
         option_selected_ar = st.selectbox('Select aspect ratio (width : height)', ('3:2','2:3','4:3','3:4','5:4','4:5','7:4','4:7','16:9','9:16','3:1'))
     param_7 = st.checkbox('Model')
     if param_7:        
-        option_selected_ver = st.selectbox('Select model version', ('v 5','v 4','v 4 --style 4a','v 4 --style 4b','v 4 --style 4c','v 3','v 2','v 1','niji','niji 5','niji 5 --style expressive','niji 5 --style cute','test','testp','test --creative','testp --creative'))
+        option_selected_ver = st.selectbox('Select model version', ('v 5.1','v 5.1 --style raw','v 5','v 4','v 4 --style 4a','v 4 --style 4b','v 4 --style 4c','v 3','v 2','v 1','niji','niji 5','niji 5 --style expressive','niji 5 --style cute','test','testp','test --creative','testp --creative'))
     param_8 = st.checkbox('Stop')
     if param_8:
         multi_stop = st.slider('Stop value:', 10, 100, 100,step=10)
