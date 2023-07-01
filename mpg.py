@@ -65,17 +65,21 @@ with col1:
     param_3 = st.checkbox('Stylize')
     if param_3:
         multi_style = st.slider('Style value:', 0, 1000, 100)
+    param_3_1 = st.checkbox('Weird')
+    if param_3_1:
+        multi_weird = st.slider('Weird value:', 0, 3000, 0)    
     param_4 = st.checkbox('Tile')
     param_5 = st.checkbox('Seed')
     if param_5:
         param_5_1 = st.checkbox('o--> Use sameseed')
         multi_seed = st.number_input('Insert a number between 0 to 4,294,967,295',min_value=0,max_value=4294967295,value=123)
+    param_5_2 = st.checkbox('Video')
     param_6 = st.checkbox('Aspect Ratio')
     if param_6:
         option_selected_ar = st.selectbox('Select aspect ratio (width : height)', ('3:2','2:3','4:3','3:4','5:4','4:5','7:4','4:7','16:9','9:16','3:1'))
     param_7 = st.checkbox('Model')
     if param_7:        
-        option_selected_ver = st.selectbox('Select model version', ('v 5.1','v 5.1 --style raw','v 5','v 4','v 4 --style 4a','v 4 --style 4b','v 4 --style 4c','v 3','v 2','v 1','niji','niji 5','niji 5 --style expressive','niji 5 --style cute','test','testp','test --creative','testp --creative'))
+        option_selected_ver = st.selectbox('Select model version', ('v 5.2','v 5.2 --style raw','v 5.1','v 5.1 --style raw','v 5','v 4','v 4 --style 4a','v 4 --style 4b','v 4 --style 4c','v 3','v 2','v 1','niji','niji 5','niji 5 --style expressive','niji 5 --style cute','test','testp','test --creative','testp --creative'))
     param_8 = st.checkbox('Stop')
     if param_8:
         multi_stop = st.slider('Stop value:', 10, 100, 100,step=10)
@@ -83,8 +87,10 @@ with col1:
     if param_9:
         multi_ups = st.radio("Upscaler :red[(_Do not use with version 5_)]",('Light Upscaler', 'Beta Upscaler', 'Anime Upscaler'))
     result_text = ""
-
-if st.button('Generate'):
+    param_10 = st.checkbox('Custom Zoom')
+    if param_10:
+        multi_zoom = st.slider('Select zoom out :red[(_Press Custom Zoom button under an upscaled image will pop up a dialogue box where you enter the prompt below_)]',1.0,2.0,2.0,step=0.5)
+if st.button('Imagine'):
     selected_components = []
     selected_options = []
     if option_0:
@@ -117,6 +123,9 @@ if st.button('Generate'):
     if param_3:
         answer = multi_style
         selected_options.append(f'--s {str(answer)}')
+    if param_3_1:
+        answer = multi_weird
+        selected_options.append(f'--weird {str(answer)}')
     if param_4:
         selected_options.append('--tile')
     if param_5:
@@ -125,6 +134,8 @@ if st.button('Generate'):
             selected_options.append(f'--sameseed {str(answer)}')
         else: 
             selected_options.append(f'--seed {str(answer)}')
+    if param_5_2:
+        selected_options.append('--video')    
     if param_6:
         answer = option_selected_ar
         selected_options.append(f'--ar {str(answer)}')
@@ -141,14 +152,21 @@ if st.button('Generate'):
             selected_options.append('--upbeta')
         elif multi_ups == 'Anime Upscaler':
             selected_options.append('--upanime')
+    if param_10:
+        answer = multi_zoom
+        selected_options.append(f'--zoom {str(answer)}')
     if option_7:
         selected_options.append('--no '+ neg_text)
-    if selected_components or selected_options:
+    
+    if selected_components or selected_options and not param_10:
         result_text = f"/imagine prompt: {', '.join(selected_components)} {' '.join(selected_options)}"
         result = st.code (result_text,language='csv',line_numbers=False)
         st.session_state['key'] = result_text
 
-
+    if selected_components or selected_options and param_10:
+        result_text = f"{', '.join(selected_components)} {' '.join(selected_options)}"
+        result = st.code (result_text,language='csv',line_numbers=False)
+        st.session_state['key'] = result_text
     
         
 if 'key' not in st.session_state:
