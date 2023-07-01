@@ -158,12 +158,12 @@ if st.button('Imagine'):
     if option_7:
         selected_options.append('--no '+ neg_text)
     
-    if selected_components or selected_options and not param_10:
+    if (selected_components or selected_options) and not param_10:
         result_text = f"/imagine prompt: {', '.join(selected_components)} {' '.join(selected_options)}"
         result = st.code (result_text,language='csv',line_numbers=False)
         st.session_state['key'] = result_text
 
-    if selected_components or selected_options and param_10:
+    if (selected_components or selected_options) and param_10:
         result_text = f"{', '.join(selected_components)} {' '.join(selected_options)}"
         result = st.code (result_text,language='csv',line_numbers=False)
         st.session_state['key'] = result_text
