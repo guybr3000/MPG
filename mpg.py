@@ -36,7 +36,7 @@ st.set_page_config(
 )
 
 st.title('Midjourney Prompt Generator',anchor=False)
-
+btn_txt= 'Imagine'
 col1, col2,col3 = st.columns(3)
 
 with col1:
@@ -90,7 +90,12 @@ with col1:
     param_10 = st.checkbox('Custom Zoom')
     if param_10:
         multi_zoom = st.slider('Select zoom out :red[(_Press Custom Zoom button under an upscaled image will pop up a dialogue box where you enter the prompt below_)]',1.0,2.0,2.0,step=0.5)
-if st.button('Imagine'):
+    st.subheader("Commands:", anchor=False)
+    param_11 = st.checkbox('Shorten')
+    if param_11:
+        btn_txt='Shorten'
+        
+if st.button(btn_txt):
     selected_components = []
     selected_options = []
     if option_0:
@@ -158,16 +163,20 @@ if st.button('Imagine'):
     if option_7:
         selected_options.append('--no '+ neg_text)
     
-    if (selected_components or selected_options) and not param_10:
+    if (selected_components or selected_options) and (not param_10 and not param_11):
         result_text = f"/imagine prompt: {', '.join(selected_components)} {' '.join(selected_options)}"
         result = st.code (result_text,language='csv',line_numbers=False)
         st.session_state['key'] = result_text
 
-    if (selected_components or selected_options) and param_10:
+    if (selected_components or selected_options) and param_10 and not param_11:
         result_text = f"{', '.join(selected_components)} {' '.join(selected_options)}"
         result = st.code (result_text,language='csv',line_numbers=False)
         st.session_state['key'] = result_text
     
+    if (selected_components or selected_options) and param_11:
+        result_text = f"/shorten prompt: {', '.join(selected_components)} {' '.join(selected_options)}"
+        result = st.code (result_text,language='csv',line_numbers=False)
+        st.session_state['key'] = result_text
         
 if 'key' not in st.session_state:
     st.session_state['key'] = result_text
