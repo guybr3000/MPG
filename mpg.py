@@ -91,7 +91,7 @@ with col1:
     if param_10:
         multi_zoom = st.slider('Select zoom out :red[(_Press Custom Zoom button under an upscaled image will pop up a dialogue box where you enter the prompt below_)]',1.0,2.0,2.0,step=0.5)
     st.subheader("Commands:", anchor=False)
-    param_11 = st.checkbox('Shorten')
+    param_11 = st.toggle('Shorten')
     if param_11:
         btn_txt='Shorten'
         
