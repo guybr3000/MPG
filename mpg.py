@@ -68,7 +68,7 @@ with col1:
     param_3_1 = st.checkbox('Weird')
     if param_3_1:
         multi_weird = st.slider('Weird value:', 0, 3000, 0)    
-    param_4 = st.checkbox('Tile')
+    param_4 = st.toggle('Tile')
     param_5 = st.checkbox('Seed')
     if param_5:
         param_5_1 = st.checkbox('o--> Use sameseed')
